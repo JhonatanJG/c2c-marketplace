@@ -29,9 +29,9 @@ function indexar(p) {
   new Set(tokenizar(`${p.titulo} ${p.descripcion}`)).forEach((t) => agregarAIndice(idxTexto, t, p.id));
 }
 
-function crear({ titulo, descripcion, precio, categoria, imagenes, vendedorId, vendedorNombre }) {
+function crear({ id, creadoEn, titulo, descripcion, precio, categoria, imagenes, vendedorId, vendedorNombre }) {
   const producto = {
-    id: crypto.randomUUID(),
+    id: id || crypto.randomUUID(),
     titulo: titulo.trim(),
     descripcion: descripcion.trim(),
     precio: Number(precio),
@@ -40,7 +40,7 @@ function crear({ titulo, descripcion, precio, categoria, imagenes, vendedorId, v
     vendedorId,               // vínculo con el usuario vendedor (HU-02)
     vendedorNombre,
     estado: 'disponible',     // disponible | reservado | vendido
-    creadoEn: new Date().toISOString()
+    creadoEn: creadoEn || new Date().toISOString()
   };
   productos.set(producto.id, producto);
   indexar(producto);

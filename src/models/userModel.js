@@ -4,9 +4,9 @@ const crypto = require('crypto');
 const usuarios = new Map();      // id -> usuario
 const porEmail = new Map();      // email (minúsculas) -> id  (índice único)
 
-function crear({ nombre, email, passwordHash, telefono }) {
+function crear({ id, nombre, email, passwordHash, telefono }) {
   const usuario = {
-    id: crypto.randomUUID(),
+    id: id || crypto.randomUUID(),
     nombre: nombre.trim(),
     email: email.trim().toLowerCase(),
     passwordHash,

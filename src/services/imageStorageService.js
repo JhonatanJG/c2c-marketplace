@@ -16,8 +16,8 @@ function firmaCoincide(buffer, mime) {
   return false;
 }
 
-function guardar(buffer, mime) {
-  const id = crypto.randomBytes(12).toString('hex');
+function guardar(buffer, mime, idFijo) {
+  const id = idFijo || crypto.randomBytes(12).toString('hex');
   almacen.set(id, { buffer, mime });
   return { id, url: `/api/products/images/${id}` };
 }
@@ -32,7 +32,7 @@ function subirDataUrl(dataUrl) {
 }
 
 // Uso interno (datos de ejemplo). No pasa por la validación del usuario.
-const subirBufferInterno = (buffer, mime) => guardar(buffer, mime).url;
+const subirBufferInterno = (buffer, mime, id) => guardar(buffer, mime, id).url;
 
 const obtener = (id) => almacen.get(id);
 

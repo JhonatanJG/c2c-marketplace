@@ -1,5 +1,7 @@
 // Datos de demostración (el modelo es simulado y vive en memoria, así que al
 // reiniciar la función serverless se vuelve a cargar este conjunto inicial).
+// IMPORTANTE: los ids son FIJOS. Vercel puede ejecutar varias copias de la función a la vez
+// y todas deben "ver" los mismos productos, imágenes y usuarios de ejemplo.
 //   Usuarios de prueba: ana@demo.com y luis@demo.com  /  contraseña: Demo1234
 const bcrypt = require('bcryptjs');
 const userModel = require('../models/userModel');
@@ -16,8 +18,8 @@ const svg = (emoji, c1, c2) => Buffer.from(
 
 function cargar() {
   const hash = bcrypt.hashSync('Demo1234', BCRYPT_ROUNDS);
-  const ana = userModel.crear({ nombre: 'Ana Torres', email: 'ana@demo.com', passwordHash: hash, telefono: '3001234567' });
-  const luis = userModel.crear({ nombre: 'Luis Pérez', email: 'luis@demo.com', passwordHash: hash, telefono: '3109876543' });
+  const ana = userModel.crear({ id: 'seed-user-ana', nombre: 'Ana Torres', email: 'ana@demo.com', passwordHash: hash, telefono: '3001234567' });
+  const luis = userModel.crear({ id: 'seed-user-luis', nombre: 'Luis Pérez', email: 'luis@demo.com', passwordHash: hash, telefono: '3109876543' });
 
   const ejemplos = [
     [ana, 'Portátil Lenovo IdeaPad 15"', 'Intel Core i5, 8 GB de RAM, SSD de 256 GB. Poco uso, incluye cargador original y funda.', 1450000, 'tecnologia', '💻', '#0ea5e9', '#6366f1'],
@@ -31,9 +33,12 @@ function cargar() {
   ];
 
   ejemplos.forEach(([vendedor, titulo, descripcion, precio, categoria, emoji, c1, c2], i) => {
-    const imagen = storage.subirBufferInterno(svg(emoji, c1, c2), 'image/svg+xml');
-    const p = productModel.crear({ titulo, descripcion, precio, categoria, imagenes: [imagen], vendedorId: vendedor.id, vendedorNombre: vendedor.nombre });
-    p.creadoEn = new Date(Date.now() - i * 3600_000).toISOString(); // orden estable de publicación
+    const imagen = storage.subirBufferInterno(svg(emoji, c1, c2), 'image/svg+xml', `seed-img-${i + 1}`);
+    productModel.crear({
+      id: `seed-prod-${i + 1}`,
+      creadoEn: new Date(Date.UTC(2026, 9, 1, 12) - i * 3600_000).toISOString(), // orden estable de publicación
+      titulo, descripcion, precio, categoria, imagenes: [imagen], vendedorId: vendedor.id, vendedorNombre: vendedor.nombre
+    });
   });
 }
 

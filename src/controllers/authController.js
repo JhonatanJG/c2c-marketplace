@@ -50,8 +50,9 @@ async function login(req, res) {
 
 // GET /api/auth/me  (protegido)
 function me(req, res) {
-  const usuario = userModel.buscarPorId(req.usuario.id);
-  if (!usuario) throw new HttpError(401, 'Tu cuenta ya no existe en este entorno de demostración. Regístrate de nuevo.');
+  // Si otra copia de la función serverless atiende la petición, puede no tener al usuario en memoria.
+  // El token está firmado, así que se responde con sus datos y la sesión no se pierde.
+  const usuario = userModel.buscarPorId(req.usuario.id) || { ...req.usuario, telefono: '' };
   res.json({ usuario: userModel.aPublico(usuario) });
 }
 
