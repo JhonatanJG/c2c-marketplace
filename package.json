@@ -1,0 +1,20 @@
+{
+  "name": "c2c-marketplace",
+  "version": "1.0.0",
+  "description": "Marketplace C2C (modelo simulado) - Taller 1 Sistema Complejo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node test/smoke.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

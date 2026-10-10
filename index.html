@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C2C Market — compra y vende entre personas</title>
+  <meta name="description" content="Marketplace C2C: regístrate, publica tus productos y compra los de otros usuarios.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛍️%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#app">Saltar al contenido</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#/" aria-label="C2C Market, ir al inicio">
+        <span class="brand-mark" aria-hidden="true">🛍️</span><span>C2C <strong>Market</strong></span>
+      </a>
+
+      <!-- HU-03: barra de búsqueda superior siempre visible -->
+      <form id="search-form" class="search" role="search">
+        <label class="sr-only" for="q">Buscar productos</label>
+        <input id="q" name="q" type="search" placeholder="Buscar productos…" autocomplete="off" maxlength="80">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+      </form>
+
+      <nav id="nav-actions" class="actions" aria-label="Cuenta de usuario"></nav>
+    </div>
+  </header>
+
+  <main id="app" tabindex="-1"></main>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <footer class="footer">
+    <p>C2C Market · Taller 1 Sistema Complejo · Modelo simulado (datos en memoria)</p>
+  </footer>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

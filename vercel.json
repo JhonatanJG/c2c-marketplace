@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node",
+      "config": { "includeFiles": ["index.html", "public/**", "src/**"] }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "headers": {
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+      },
+      "continue": true
+    },
+    { "src": "/api/auth/(.*)", "dest": "server.js" },
+    { "src": "/api/products(.*)", "dest": "server.js" },
+    { "src": "/api/orders(.*)", "dest": "server.js" },
+    { "src": "/api/health", "dest": "server.js" },
+    { "src": "/(.*)", "dest": "server.js" }
+  ]
+}
