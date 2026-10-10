@@ -4,8 +4,9 @@
     {
       "src": "server.js",
       "use": "@vercel/node",
-      "config": { "includeFiles": ["index.html", "public/**", "src/**"] }
-    }
+      "config": { "includeFiles": ["index.html", "src/**"] }
+    },
+    { "src": "public/**", "use": "@vercel/static" }
   ],
   "routes": [
     {
@@ -21,6 +22,8 @@
     { "src": "/api/products(.*)", "dest": "server.js" },
     { "src": "/api/orders(.*)", "dest": "server.js" },
     { "src": "/api/health", "dest": "server.js" },
+    { "src": "/css/(.*)", "dest": "/public/css/$1" },
+    { "src": "/js/(.*)", "dest": "/public/js/$1" },
     { "src": "/(.*)", "dest": "server.js" }
   ]
 }
