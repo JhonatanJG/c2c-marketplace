@@ -63,6 +63,9 @@ Tarjetas de la pasarela simulada: `4242 4242 4242 4242` (aprobada) · `4000 0000
 2. En Vercel: **Add New Project** → importa el repositorio → **Deploy** (`vercel.json` ya define el build y el proxy inverso).
 3. Recomendado: en *Settings → Environment Variables* agrega `JWT_SECRET` con un valor largo y aleatorio.
 
+> `vercel.json` define dos builds: `@vercel/node` para `server.js` (API + `index.html`) y `@vercel/static` para `public/`.
+> Es necesario: si los `.js` del frontend pasaran por la función de Node, Vercel los convertiría de ESM a CommonJS y el navegador fallaría con `require is not defined`.
+
 ## Nota sobre el "modelo simulado"
 
 Las bases de datos viven **en memoria**: al reiniciarse la función serverless (inactividad o nuevo despliegue)
